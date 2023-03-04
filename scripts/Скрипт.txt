@@ -1,13 +1,18 @@
-pm.test("intent", function () {
+pm.test("test", function () {
     var jsonData = pm.response.json();
-    var test_intent = jsonData.intent_classifier[0].name;
-pm.expect(test_intent).to.eql("not_intent_osibki");
+    var Domaintext = jsonData.domain_classifier[0].name
+    var sr = pm.variables.get('domain')
+pm.expect(Domaintext).to.eql(sr);
 });
 
-pm.test("intent_confidence", function () {
+pm.test("confidence_test", function () {
     var jsonData = pm.response.json();
-    var test_confidence = jsonData.intent_classifier[0].confidence;
-pm.expect(test_confidence).to.eql(1.0);
+    var testdomain = jsonData.domain_classifier[0].confidence;
+pm.expect(testdomain).to.greaterThan(0.4);
 });
+
+
+
 
 http://10.81.18.33/multi-classifier/v1/predict?query={{text}}
+
