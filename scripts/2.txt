@@ -1,18 +1,27 @@
-pm.test("test", function () {
+pm.test("search", function () {
     var jsonData = pm.response.json();
-    var Domaintext = jsonData.domain_classifier[0].name
-    var sr = pm.variables.get('domain')
-pm.expect(Domaintext).to.eql(sr);
+    var test_search = jsonData.service_classifier[0].name;
+pm.expect(test_search).to.eql("search");
 });
 
-pm.test("confidence_test", function () {
+pm.test("search_confidence", function () {
     var jsonData = pm.response.json();
-    var testdomain = jsonData.domain_classifier[0].confidence;
-pm.expect(testdomain).to.greaterThan(0.4);
+    var search_confidence = jsonData.service_classifier[0].confidence;
+pm.expect(search_confidence).to.eql(1.0);
 });
 
+pm.test("intent", function () {
+    var jsonData = pm.response.json();
+    var test_intent = jsonData.intent_classifier[0].name;
+pm.expect(test_intent).to.eql("not_intent_osibki");
+});
+
+pm.test("intent_confidence", function () {
+    var jsonData = pm.response.json();
+    var test_confidence = jsonData.intent_classifier[0].confidence;
+pm.expect(test_confidence).to.greaterThan(0.5);
+});
 
 
 
 http://10.81.18.33/multi-classifier/v1/predict?query={{text}}
-
